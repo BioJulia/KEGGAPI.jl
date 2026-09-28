@@ -1,42 +1,49 @@
 #!/usr/bin/env bash
-# curl runner: times raw REST calls and prints one CSV row per replicate.
-# Usage: bash runners/bench_curl.sh <nreps> <sleep_seconds>
+# Time raw REST calls and print one CSV row per request.
+# Usage: bash bench_curl.sh <nreps> <pause_seconds>
 set -euo pipefail
 
-NREPS="${1:-5}"
+NREPS="${1:-1}"
 PAUSE="${2:-0.4}"
-
 BASE="https://rest.kegg.jp"
-
-# label|path pairs -- keep in sync with the other runners.
-CASES=(
-    "info|$BASE/info/kegg"
-    "list|$BASE/list/pathway"
-    "find|$BASE/find/compound/glucose"
-    "get|$BASE/get/hsa:10458"
-    "getseq|$BASE/get/hsa:10458/aaseq"
-    "conv|$BASE/conv/ncbi-geneid/eco:b0002"
-    "link|$BASE/link/pathway/hsa:10458"
-    "ddi|$BASE/ddi/D00564"
-)
-
-# Must match the interface name in run_benchmarks.jl.
+CASE_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/cases.tsv"
 LABEL="curl"
 
-# `curl -w %{time_total}` reports the transfer time without shell startup cost.
-timeit() {
-    curl -s -o /dev/null -w '%{time_total}' "$1"
+case_path() {
+    local operation="$1" argument1="$2" argument2="$3"
+    case "$operation" in
+        info)   printf 'info/%s' "$argument1" ;;
+        list)   printf 'list/%s' "$argument1" ;;
+        find)   printf 'find/%s/%s' "$argument1" "$argument2" ;;
+        get)    printf 'get/%s' "$argument1" ;;
+        getseq) printf 'get/%s/aaseq' "$argument1" ;;
+        conv)   printf 'conv/%s/%s' "$argument1" "$argument2" ;;
+        link)   printf 'link/%s/%s' "$argument1" "$argument2" ;;
+        ddi)    printf 'ddi/%s' "$argument1" ;;
+        *)      echo "Unknown benchmark operation: $operation" >&2; return 1 ;;
+    esac
 }
 
-# Warm up before the measured replicates.
-for case in "${CASES[@]}"; do
-    curl -s -o /dev/null "${case#*|}"
+timeit() {
+    curl -fsS -o /dev/null -w '%{time_total}' "$1"
+}
+
+# Warm up each operation once so connection setup is absent from measurements.
+previous_operation=""
+while IFS=$'\t' read -r operation argument1 argument2; do
+    [[ "$operation" == "operation" ]] && continue
+    [[ "$operation" == "$previous_operation" ]] && continue
+    path="$(case_path "$operation" "$argument1" "$argument2")"
+    curl -fsS -o /dev/null "$BASE/$path"
+    previous_operation="$operation"
     sleep "$PAUSE"
-done
+done < "$CASE_FILE"
 
 for _ in $(seq 1 "$NREPS"); do
-    for case in "${CASES[@]}"; do
-        echo "${case%%|*},$LABEL,$(timeit "${case#*|}")"
+    while IFS=$'\t' read -r operation argument1 argument2; do
+        [[ "$operation" == "operation" ]] && continue
+        path="$(case_path "$operation" "$argument1" "$argument2")"
+        echo "$operation,$path,$LABEL,$(timeit "$BASE/$path")"
         sleep "$PAUSE"
-    done
+    done < "$CASE_FILE"
 done

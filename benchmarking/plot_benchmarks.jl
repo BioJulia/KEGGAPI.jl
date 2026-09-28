@@ -1,62 +1,51 @@
 #!/usr/bin/env julia
-#
-# Render benchmark_compare.csv to benchmark_compare.png (the figure used in the
-# README).
-#
-#     julia --project=benchmarking benchmarking/plot_benchmarks.jl
-#
+# Render the request-time distributions in benchmark_compare.csv.
 using DelimitedFiles
 using Plots
-using Plots.PlotMeasures  # provides `mm` for margins
-using StatsPlots  # provides `groupedbar`
+using Plots.PlotMeasures
+using StatsPlots
 
 const BENCHDIR = @__DIR__
 const CSV = joinpath(BENCHDIR, "benchmark_compare.csv")
+const CANONICAL = ["info", "list", "find", "get", "getseq", "conv", "link", "ddi"]
 
 isfile(CSV) || error("$CSV not found. Run run_benchmarks.jl first.")
+raw, header = readdlm(CSV, ',', String, header = true)
+vec(header) == ["Function", "Request", "Language", "Seconds"] || error("Unexpected columns in $CSV")
 
-# Read as text so blank medians (unsupported/skipped pairs) survive parsing.
-raw, _ = readdlm(CSV, ',', String, header = true)
 functions = strip.(raw[:, 1])
-languages = strip.(raw[:, 2])
-medians = [isempty(strip(s)) ? NaN : parse(Float64, strip(s)) for s in raw[:, 3]]
+languages = strip.(raw[:, 3])
+seconds = parse.(Float64, strip.(raw[:, 4]))
+all(isfinite, seconds) && all(>=(0), seconds) ||
+    error("Benchmark timings must be finite and nonnegative")
 
-# One grouped bar per operation, one series per interface. Operations follow the
-# canonical KEGG order rather than the CSV's order; anything not listed is
-# appended so new cases still plot.
-const CANONICAL = ["info", "list", "find", "get", "getseq", "conv", "link", "ddi"]
 present = unique(functions)
-fn_order = [f for f in CANONICAL if f in present]
-append!(fn_order, sort([f for f in present if f ∉ CANONICAL]))
-lang_order = unique(languages)
+fn_order = [function_name for function_name in CANONICAL if function_name in present]
+append!(fn_order, sort([function_name for function_name in present if function_name ∉ CANONICAL]))
+fn_index = Dict(function_name => index for (index, function_name) in enumerate(fn_order))
+ordered_functions = [fn_index[function_name] for function_name in functions]
 
-# Blank cells -- e.g. ddi, which KEGGREST and Bio.KEGG.REST do not wrap -- stay
-# NaN so no bar is drawn for them.
-matrix = fill(NaN, length(fn_order), length(lang_order))
-for i in eachindex(functions)
-    r = findfirst(==(functions[i]), fn_order)
-    c = findfirst(==(languages[i]), lang_order)
-    matrix[r, c] = medians[i]
-end
-
-plt = groupedbar(
-    fn_order,
-    matrix;
-    label = permutedims(lang_order),
+plt = groupedboxplot(
+    ordered_functions,
+    seconds;
+    group = languages,
+    label = permutedims(unique(languages)),
+    xticks = (eachindex(fn_order), fn_order),
     xlabel = "KEGG operation",
-    ylabel = "Median time per call (s)",
-    title = "KEGGAPI.jl benchmarks",
+    ylabel = "Request time (s)",
+    title = "KEGG API request-time distributions",
     legend = :topleft,
-    # Headroom so the tallest bar is not clipped by the axis.
-    ylims = (0, 1.08 * maximum(filter(!isnan, matrix))),
-    bar_width = 0.7,
+    outliers = true,
+    bar_width = 0.75,
     framestyle = :box,
-    size = (1000, 500),
+    size = (1100, 600),
     dpi = 200,
     left_margin = 8mm,
     bottom_margin = 8mm,
 )
 
-out = joinpath(BENCHDIR, "benchmark_compare.png")
-savefig(plt, out)
-@info "Wrote $out"
+for extension in ("svg", "png")
+    output = joinpath(BENCHDIR, "benchmark.$extension")
+    savefig(plt, output)
+    @info "Wrote $output"
+end

@@ -1,33 +1,751 @@
-Function,Language,Median
-info,KEGGAPI.jl,0.307882604
-info,KEGGREST (R),0.34338712692260753
-info,Bio.KEGG.REST (Python),1.167023624991998
-info,curl,1.172729
-list,KEGGAPI.jl,0.3293254165
-list,KEGGREST (R),0.347944498062134
-list,Bio.KEGG.REST (Python),1.7430932079441845
-list,curl,1.6577104999999999
-find,KEGGAPI.jl,0.7023177085
-find,KEGGREST (R),0.7486366033554075
-find,Bio.KEGG.REST (Python),1.8074901875806972
-find,curl,1.5090075
-get,KEGGAPI.jl,0.273175521
-get,KEGGREST (R),0.341122031211853
-get,Bio.KEGG.REST (Python),1.111077479668893
-get,curl,1.125364
-getseq,KEGGAPI.jl,0.2717634375
-getseq,KEGGREST (R),0.29120397567749046
-getseq,Bio.KEGG.REST (Python),1.137285729055293
-getseq,curl,1.1196380000000001
-conv,KEGGAPI.jl,0.309721292
-conv,KEGGREST (R),0.3259974718093875
-conv,Bio.KEGG.REST (Python),1.1793734789825976
-conv,curl,1.1173565
-link,KEGGAPI.jl,0.31500602099999997
-link,KEGGREST (R),0.331033945083618
-link,Bio.KEGG.REST (Python),1.1386673335218802
-link,curl,1.1256504999999999
-ddi,KEGGAPI.jl,1.0907793125
-ddi,KEGGREST (R),
-ddi,Bio.KEGG.REST (Python),
-ddi,curl,3.0146245
+Function,Request,Language,Seconds
+info,info/kegg,KEGGAPI.jl,0.3077775
+info,info/pathway,KEGGAPI.jl,0.96303975
+info,info/brite,KEGGAPI.jl,0.935796208
+info,info/module,KEGGAPI.jl,0.922787416
+info,info/ko,KEGGAPI.jl,0.963228875
+info,info/genome,KEGGAPI.jl,0.99582475
+info,info/genes,KEGGAPI.jl,0.315099542
+info,info/ligand,KEGGAPI.jl,0.62070375
+info,info/compound,KEGGAPI.jl,0.621208875
+info,info/glycan,KEGGAPI.jl,0.543819458
+info,info/reaction,KEGGAPI.jl,0.53362475
+info,info/rclass,KEGGAPI.jl,0.583050083
+info,info/enzyme,KEGGAPI.jl,0.826399
+info,info/network,KEGGAPI.jl,0.509424167
+info,info/variant,KEGGAPI.jl,0.525780708
+info,info/disease,KEGGAPI.jl,0.547429292
+info,info/drug,KEGGAPI.jl,0.597524375
+info,info/dgroup,KEGGAPI.jl,0.498197167
+info,info/cel,KEGGAPI.jl,0.642881459
+info,info/hsa,KEGGAPI.jl,0.621316833
+info,info/eco,KEGGAPI.jl,1.953235917
+info,info/sce,KEGGAPI.jl,0.621393541
+info,info/ath,KEGGAPI.jl,0.622009375
+info,info/dme,KEGGAPI.jl,0.564229834
+info,info/mmu,KEGGAPI.jl,0.577999833
+list,list/hsa:10458,KEGGAPI.jl,0.722918417
+list,list/hsa:7157,KEGGAPI.jl,0.72444375
+list,list/hsa:672,KEGGAPI.jl,0.724431084
+list,list/hsa:675,KEGGAPI.jl,0.679090042
+list,list/hsa:1956,KEGGAPI.jl,0.700290667
+list,list/hsa:2064,KEGGAPI.jl,0.7044555
+list,list/hsa:5290,KEGGAPI.jl,0.709485333
+list,list/hsa:7422,KEGGAPI.jl,0.67905875
+list,list/hsa:3845,KEGGAPI.jl,0.768545708
+list,list/hsa:5970,KEGGAPI.jl,0.702529334
+list,list/hsa:4609,KEGGAPI.jl,0.74600525
+list,list/hsa:2475,KEGGAPI.jl,0.723711666
+list,list/hsa:5728,KEGGAPI.jl,0.724450375
+list,list/hsa:1029,KEGGAPI.jl,0.724611958
+list,list/hsa:3553,KEGGAPI.jl,0.725165833
+list,list/hsa:7124,KEGGAPI.jl,0.688680167
+list,list/hsa:7040,KEGGAPI.jl,0.758334667
+list,list/hsa:3091,KEGGAPI.jl,0.690401709
+list,list/hsa:3105,KEGGAPI.jl,0.757856
+list,list/hsa:4318,KEGGAPI.jl,0.72437525
+list,list/hsa:5243,KEGGAPI.jl,0.726477792
+list,list/hsa:5468,KEGGAPI.jl,0.686373792
+list,list/hsa:2099,KEGGAPI.jl,0.68047525
+list,list/hsa:2100,KEGGAPI.jl,0.700951291
+list,list/hsa:348,KEGGAPI.jl,0.724667334
+find,find/compound/glucose,KEGGAPI.jl,0.6898745
+find,find/compound/fructose,KEGGAPI.jl,0.680679584
+find,find/compound/galactose,KEGGAPI.jl,0.665822
+find,find/compound/mannose,KEGGAPI.jl,0.6789645
+find,find/compound/sucrose,KEGGAPI.jl,0.702786625
+find,find/compound/lactose,KEGGAPI.jl,0.708557084
+find,find/compound/maltose,KEGGAPI.jl,0.739025084
+find,find/compound/ribose,KEGGAPI.jl,0.72092275
+find,find/compound/xylose,KEGGAPI.jl,0.725615125
+find,find/compound/pyruvate,KEGGAPI.jl,0.727562834
+find,find/compound/citrate,KEGGAPI.jl,0.719372833
+find,find/compound/acetate,KEGGAPI.jl,1.032336875
+find,find/compound/ethanol,KEGGAPI.jl,0.724714542
+find,find/compound/cholesterol,KEGGAPI.jl,0.673380958
+find,find/compound/adenine,KEGGAPI.jl,0.678385417
+find,find/compound/guanine,KEGGAPI.jl,0.717631542
+find,find/compound/cytosine,KEGGAPI.jl,0.714372208
+find,find/compound/thymine,KEGGAPI.jl,0.733448209
+find,find/compound/uracil,KEGGAPI.jl,0.726009083
+find,find/compound/glycine,KEGGAPI.jl,0.683401834
+find,find/compound/alanine,KEGGAPI.jl,0.682084583
+find,find/compound/valine,KEGGAPI.jl,0.700989792
+find,find/compound/leucine,KEGGAPI.jl,0.7233725
+find,find/compound/serine,KEGGAPI.jl,0.726117292
+find,find/compound/cysteine,KEGGAPI.jl,0.682259375
+get,get/hsa:10458,KEGGAPI.jl,0.356735375
+get,get/hsa:7157,KEGGAPI.jl,0.272564833
+get,get/hsa:672,KEGGAPI.jl,0.357257875
+get,get/hsa:675,KEGGAPI.jl,0.275365
+get,get/hsa:1956,KEGGAPI.jl,0.356997667
+get,get/hsa:2064,KEGGAPI.jl,0.273656709
+get,get/hsa:5290,KEGGAPI.jl,0.600749209
+get,get/hsa:7422,KEGGAPI.jl,0.270681458
+get,get/hsa:3845,KEGGAPI.jl,0.313876375
+get,get/hsa:5970,KEGGAPI.jl,0.316080959
+get,get/hsa:4609,KEGGAPI.jl,0.271843042
+get,get/hsa:2475,KEGGAPI.jl,0.354312083
+get,get/hsa:5728,KEGGAPI.jl,0.275390459
+get,get/hsa:1029,KEGGAPI.jl,0.297292333
+get,get/hsa:3553,KEGGAPI.jl,0.271996125
+get,get/hsa:7124,KEGGAPI.jl,0.309515083
+get,get/hsa:7040,KEGGAPI.jl,0.314916333
+get,get/hsa:3091,KEGGAPI.jl,0.273901292
+get,get/hsa:3105,KEGGAPI.jl,0.27249875
+get,get/hsa:4318,KEGGAPI.jl,0.272858583
+get,get/hsa:5243,KEGGAPI.jl,0.280674708
+get,get/hsa:5468,KEGGAPI.jl,0.276074083
+get,get/hsa:2099,KEGGAPI.jl,0.289789208
+get,get/hsa:2100,KEGGAPI.jl,0.330727833
+get,get/hsa:348,KEGGAPI.jl,0.284997042
+getseq,get/hsa:10458/aaseq,KEGGAPI.jl,0.346396375
+getseq,get/hsa:7157/aaseq,KEGGAPI.jl,0.3104015
+getseq,get/hsa:672/aaseq,KEGGAPI.jl,0.27192175
+getseq,get/hsa:675/aaseq,KEGGAPI.jl,0.275351208
+getseq,get/hsa:1956/aaseq,KEGGAPI.jl,0.270801584
+getseq,get/hsa:2064/aaseq,KEGGAPI.jl,0.338588959
+getseq,get/hsa:5290/aaseq,KEGGAPI.jl,0.315220958
+getseq,get/hsa:7422/aaseq,KEGGAPI.jl,0.312460166
+getseq,get/hsa:3845/aaseq,KEGGAPI.jl,0.314449084
+getseq,get/hsa:5970/aaseq,KEGGAPI.jl,0.268376417
+getseq,get/hsa:4609/aaseq,KEGGAPI.jl,0.269938625
+getseq,get/hsa:2475/aaseq,KEGGAPI.jl,0.299718583
+getseq,get/hsa:5728/aaseq,KEGGAPI.jl,0.31735925
+getseq,get/hsa:1029/aaseq,KEGGAPI.jl,0.315183208
+getseq,get/hsa:3553/aaseq,KEGGAPI.jl,0.312809
+getseq,get/hsa:7124/aaseq,KEGGAPI.jl,0.313729625
+getseq,get/hsa:7040/aaseq,KEGGAPI.jl,0.271941417
+getseq,get/hsa:3091/aaseq,KEGGAPI.jl,0.269240542
+getseq,get/hsa:3105/aaseq,KEGGAPI.jl,0.311101083
+getseq,get/hsa:4318/aaseq,KEGGAPI.jl,0.305006875
+getseq,get/hsa:5243/aaseq,KEGGAPI.jl,0.3142715
+getseq,get/hsa:5468/aaseq,KEGGAPI.jl,0.313958
+getseq,get/hsa:2099/aaseq,KEGGAPI.jl,0.314631583
+getseq,get/hsa:2100/aaseq,KEGGAPI.jl,0.314252333
+getseq,get/hsa:348/aaseq,KEGGAPI.jl,0.314387959
+conv,conv/ncbi-geneid/hsa:10458,KEGGAPI.jl,0.314524708
+conv,conv/ncbi-geneid/hsa:7157,KEGGAPI.jl,0.313243791
+conv,conv/ncbi-geneid/hsa:672,KEGGAPI.jl,0.317403667
+conv,conv/ncbi-geneid/hsa:675,KEGGAPI.jl,0.312777209
+conv,conv/ncbi-geneid/hsa:1956,KEGGAPI.jl,0.319520041
+conv,conv/ncbi-geneid/hsa:2064,KEGGAPI.jl,0.3136645
+conv,conv/ncbi-geneid/hsa:5290,KEGGAPI.jl,0.316226917
+conv,conv/ncbi-geneid/hsa:7422,KEGGAPI.jl,0.309582208
+conv,conv/ncbi-geneid/hsa:3845,KEGGAPI.jl,0.310918959
+conv,conv/ncbi-geneid/hsa:5970,KEGGAPI.jl,0.314732792
+conv,conv/ncbi-geneid/hsa:4609,KEGGAPI.jl,0.416112292
+conv,conv/ncbi-geneid/hsa:2475,KEGGAPI.jl,0.315479208
+conv,conv/ncbi-geneid/hsa:5728,KEGGAPI.jl,0.31318275
+conv,conv/ncbi-geneid/hsa:1029,KEGGAPI.jl,0.314787167
+conv,conv/ncbi-geneid/hsa:3553,KEGGAPI.jl,0.315413208
+conv,conv/ncbi-geneid/hsa:7124,KEGGAPI.jl,0.313842291
+conv,conv/ncbi-geneid/hsa:7040,KEGGAPI.jl,0.318847291
+conv,conv/ncbi-geneid/hsa:3091,KEGGAPI.jl,0.312884208
+conv,conv/ncbi-geneid/hsa:3105,KEGGAPI.jl,0.311124625
+conv,conv/ncbi-geneid/hsa:4318,KEGGAPI.jl,0.34654
+conv,conv/ncbi-geneid/hsa:5243,KEGGAPI.jl,0.310097791
+conv,conv/ncbi-geneid/hsa:5468,KEGGAPI.jl,0.311857125
+conv,conv/ncbi-geneid/hsa:2099,KEGGAPI.jl,0.310580625
+conv,conv/ncbi-geneid/hsa:2100,KEGGAPI.jl,0.393567667
+conv,conv/ncbi-geneid/hsa:348,KEGGAPI.jl,0.314307583
+link,link/pathway/hsa:10458,KEGGAPI.jl,0.3188535
+link,link/pathway/hsa:7157,KEGGAPI.jl,0.314266583
+link,link/pathway/hsa:672,KEGGAPI.jl,0.314931292
+link,link/pathway/hsa:675,KEGGAPI.jl,0.3186485
+link,link/pathway/hsa:1956,KEGGAPI.jl,0.311933458
+link,link/pathway/hsa:2064,KEGGAPI.jl,0.316663833
+link,link/pathway/hsa:5290,KEGGAPI.jl,0.318829542
+link,link/pathway/hsa:7422,KEGGAPI.jl,0.313101458
+link,link/pathway/hsa:3845,KEGGAPI.jl,0.312684458
+link,link/pathway/hsa:5970,KEGGAPI.jl,0.316117875
+link,link/pathway/hsa:4609,KEGGAPI.jl,0.312753792
+link,link/pathway/hsa:2475,KEGGAPI.jl,0.3192855
+link,link/pathway/hsa:5728,KEGGAPI.jl,0.312728208
+link,link/pathway/hsa:1029,KEGGAPI.jl,0.313635541
+link,link/pathway/hsa:3553,KEGGAPI.jl,0.315000667
+link,link/pathway/hsa:7124,KEGGAPI.jl,0.315748
+link,link/pathway/hsa:7040,KEGGAPI.jl,0.315760959
+link,link/pathway/hsa:3091,KEGGAPI.jl,0.321853291
+link,link/pathway/hsa:3105,KEGGAPI.jl,0.314124
+link,link/pathway/hsa:4318,KEGGAPI.jl,0.31995
+link,link/pathway/hsa:5243,KEGGAPI.jl,0.31542175
+link,link/pathway/hsa:5468,KEGGAPI.jl,0.314314083
+link,link/pathway/hsa:2099,KEGGAPI.jl,0.31315025
+link,link/pathway/hsa:2100,KEGGAPI.jl,0.313166583
+link,link/pathway/hsa:348,KEGGAPI.jl,0.313986042
+ddi,ddi/D00006,KEGGAPI.jl,0.761043791
+ddi,ddi/D00008,KEGGAPI.jl,0.821654166
+ddi,ddi/D00015,KEGGAPI.jl,0.871222875
+ddi,ddi/D00018,KEGGAPI.jl,0.826554334
+ddi,ddi/D00020,KEGGAPI.jl,0.827731459
+ddi,ddi/D00028,KEGGAPI.jl,0.764735291
+ddi,ddi/D00032,KEGGAPI.jl,0.785970375
+ddi,ddi/D00033,KEGGAPI.jl,0.825911
+ddi,ddi/D00043,KEGGAPI.jl,0.826639375
+ddi,ddi/D00045,KEGGAPI.jl,0.827301541
+ddi,ddi/D00049,KEGGAPI.jl,0.824407584
+ddi,ddi/D00052,KEGGAPI.jl,0.827566875
+ddi,ddi/D00058,KEGGAPI.jl,0.758327
+ddi,ddi/D00059,KEGGAPI.jl,0.79421825
+ddi,ddi/D00060,KEGGAPI.jl,0.8251195
+ddi,ddi/D00062,KEGGAPI.jl,0.76262425
+ddi,ddi/D00063,KEGGAPI.jl,0.791356167
+ddi,ddi/D00066,KEGGAPI.jl,0.824179708
+ddi,ddi/D00067,KEGGAPI.jl,0.768654417
+ddi,ddi/D00068,KEGGAPI.jl,0.78047
+ddi,ddi/D00069,KEGGAPI.jl,0.763107375
+ddi,ddi/D00070,KEGGAPI.jl,0.788219459
+ddi,ddi/D00073,KEGGAPI.jl,0.764393208
+ddi,ddi/D00074,KEGGAPI.jl,0.788815917
+ddi,ddi/D00075,KEGGAPI.jl,0.825214625
+info,info/kegg,KEGGREST (R),0.312999999999999
+info,info/pathway,KEGGREST (R),1.176
+info,info/brite,KEGGREST (R),2.334
+info,info/module,KEGGREST (R),0.795999999999999
+info,info/ko,KEGGREST (R),1.37
+info,info/genome,KEGGREST (R),1.377
+info,info/genes,KEGGREST (R),0.315999999999999
+info,info/ligand,KEGGREST (R),0.598999999999997
+info,info/compound,KEGGREST (R),0.553000000000001
+info,info/glycan,KEGGREST (R),0.579000000000001
+info,info/reaction,KEGGREST (R),0.524000000000001
+info,info/rclass,KEGGREST (R),0.533000000000001
+info,info/enzyme,KEGGREST (R),0.811
+info,info/network,KEGGREST (R),0.527000000000001
+info,info/variant,KEGGREST (R),0.593999999999998
+info,info/disease,KEGGREST (R),0.594999999999999
+info,info/drug,KEGGREST (R),0.583000000000002
+info,info/dgroup,KEGGREST (R),0.509
+info,info/cel,KEGGREST (R),0.570999999999998
+info,info/hsa,KEGGREST (R),0.583000000000002
+info,info/eco,KEGGREST (R),0.564999999999998
+info,info/sce,KEGGREST (R),0.567
+info,info/ath,KEGGREST (R),0.568000000000005
+info,info/dme,KEGGREST (R),0.633000000000003
+info,info/mmu,KEGGREST (R),0.561
+list,list/hsa:10458,KEGGREST (R),0.700000000000003
+list,list/hsa:7157,KEGGREST (R),0.693000000000005
+list,list/hsa:672,KEGGREST (R),0.692
+list,list/hsa:675,KEGGREST (R),0.706999999999994
+list,list/hsa:1956,KEGGREST (R),0.713999999999999
+list,list/hsa:2064,KEGGREST (R),0.724999999999994
+list,list/hsa:5290,KEGGREST (R),0.787999999999997
+list,list/hsa:7422,KEGGREST (R),0.716000000000001
+list,list/hsa:3845,KEGGREST (R),0.731999999999999
+list,list/hsa:5970,KEGGREST (R),0.720999999999997
+list,list/hsa:4609,KEGGREST (R),0.677
+list,list/hsa:2475,KEGGREST (R),0.667000000000002
+list,list/hsa:5728,KEGGREST (R),0.722000000000001
+list,list/hsa:1029,KEGGREST (R),0.725000000000001
+list,list/hsa:3553,KEGGREST (R),0.719999999999999
+list,list/hsa:7124,KEGGREST (R),0.722000000000001
+list,list/hsa:7040,KEGGREST (R),0.713000000000001
+list,list/hsa:3091,KEGGREST (R),0.737000000000002
+list,list/hsa:3105,KEGGREST (R),0.710999999999999
+list,list/hsa:4318,KEGGREST (R),0.736000000000004
+list,list/hsa:5243,KEGGREST (R),0.722000000000001
+list,list/hsa:5468,KEGGREST (R),0.722999999999999
+list,list/hsa:2099,KEGGREST (R),0.676000000000002
+list,list/hsa:2100,KEGGREST (R),0.655000000000001
+list,list/hsa:348,KEGGREST (R),0.701999999999998
+find,find/compound/glucose,KEGGREST (R),0.709000000000003
+find,find/compound/fructose,KEGGREST (R),0.769000000000005
+find,find/compound/galactose,KEGGREST (R),0.722000000000008
+find,find/compound/mannose,KEGGREST (R),0.722000000000008
+find,find/compound/sucrose,KEGGREST (R),0.721999999999994
+find,find/compound/lactose,KEGGREST (R),0.688999999999993
+find,find/compound/maltose,KEGGREST (R),0.762
+find,find/compound/ribose,KEGGREST (R),0.652000000000001
+find,find/compound/xylose,KEGGREST (R),0.701999999999998
+find,find/compound/pyruvate,KEGGREST (R),0.709000000000003
+find,find/compound/citrate,KEGGREST (R),0.721999999999994
+find,find/compound/acetate,KEGGREST (R),0.703999999999994
+find,find/compound/ethanol,KEGGREST (R),0.694000000000003
+find,find/compound/cholesterol,KEGGREST (R),0.677999999999997
+find,find/compound/adenine,KEGGREST (R),0.712000000000003
+find,find/compound/guanine,KEGGREST (R),0.670000000000002
+find,find/compound/cytosine,KEGGREST (R),0.661999999999992
+find,find/compound/thymine,KEGGREST (R),0.728999999999999
+find,find/compound/uracil,KEGGREST (R),0.671999999999997
+find,find/compound/glycine,KEGGREST (R),0.777000000000001
+find,find/compound/alanine,KEGGREST (R),0.697000000000003
+find,find/compound/valine,KEGGREST (R),0.691000000000003
+find,find/compound/leucine,KEGGREST (R),0.674999999999997
+find,find/compound/serine,KEGGREST (R),0.718000000000004
+find,find/compound/cysteine,KEGGREST (R),0.73299999999999
+get,get/hsa:10458,KEGGREST (R),0.344999999999999
+get,get/hsa:7157,KEGGREST (R),0.328000000000003
+get,get/hsa:672,KEGGREST (R),0.367999999999995
+get,get/hsa:675,KEGGREST (R),0.356999999999999
+get,get/hsa:1956,KEGGREST (R),0.361000000000004
+get,get/hsa:2064,KEGGREST (R),0.343000000000004
+get,get/hsa:5290,KEGGREST (R),0.408999999999992
+get,get/hsa:7422,KEGGREST (R),0.338000000000008
+get,get/hsa:3845,KEGGREST (R),0.379999999999995
+get,get/hsa:5970,KEGGREST (R),0.356999999999999
+get,get/hsa:4609,KEGGREST (R),0.341000000000008
+get,get/hsa:2475,KEGGREST (R),0.351000000000013
+get,get/hsa:5728,KEGGREST (R),0.317000000000007
+get,get/hsa:1029,KEGGREST (R),0.332000000000008
+get,get/hsa:3553,KEGGREST (R),0.349000000000004
+get,get/hsa:7124,KEGGREST (R),0.411999999999992
+get,get/hsa:7040,KEGGREST (R),0.34899999999999
+get,get/hsa:3091,KEGGREST (R),0.325000000000003
+get,get/hsa:3105,KEGGREST (R),0.334000000000003
+get,get/hsa:4318,KEGGREST (R),0.318000000000012
+get,get/hsa:5243,KEGGREST (R),0.298000000000002
+get,get/hsa:5468,KEGGREST (R),0.317000000000007
+get,get/hsa:2099,KEGGREST (R),0.347999999999999
+get,get/hsa:2100,KEGGREST (R),0.334000000000003
+get,get/hsa:348,KEGGREST (R),0.304000000000002
+getseq,get/hsa:10458/aaseq,KEGGREST (R),0.277000000000001
+getseq,get/hsa:7157/aaseq,KEGGREST (R),0.287000000000006
+getseq,get/hsa:672/aaseq,KEGGREST (R),0.283999999999992
+getseq,get/hsa:675/aaseq,KEGGREST (R),0.277000000000001
+getseq,get/hsa:1956/aaseq,KEGGREST (R),0.278000000000006
+getseq,get/hsa:2064/aaseq,KEGGREST (R),0.280000000000001
+getseq,get/hsa:5290/aaseq,KEGGREST (R),0.284000000000006
+getseq,get/hsa:7422/aaseq,KEGGREST (R),0.283999999999992
+getseq,get/hsa:3845/aaseq,KEGGREST (R),0.284000000000006
+getseq,get/hsa:5970/aaseq,KEGGREST (R),0.283000000000001
+getseq,get/hsa:4609/aaseq,KEGGREST (R),0.319000000000003
+getseq,get/hsa:2475/aaseq,KEGGREST (R),0.281000000000006
+getseq,get/hsa:5728/aaseq,KEGGREST (R),0.283000000000001
+getseq,get/hsa:1029/aaseq,KEGGREST (R),0.285000000000011
+getseq,get/hsa:3553/aaseq,KEGGREST (R),0.280000000000001
+getseq,get/hsa:7124/aaseq,KEGGREST (R),0.274000000000001
+getseq,get/hsa:7040/aaseq,KEGGREST (R),0.286000000000001
+getseq,get/hsa:3091/aaseq,KEGGREST (R),0.277000000000001
+getseq,get/hsa:3105/aaseq,KEGGREST (R),0.272999999999996
+getseq,get/hsa:4318/aaseq,KEGGREST (R),0.282000000000011
+getseq,get/hsa:5243/aaseq,KEGGREST (R),0.284999999999997
+getseq,get/hsa:5468/aaseq,KEGGREST (R),0.275999999999996
+getseq,get/hsa:2099/aaseq,KEGGREST (R),0.284999999999997
+getseq,get/hsa:2100/aaseq,KEGGREST (R),0.296000000000006
+getseq,get/hsa:348/aaseq,KEGGREST (R),0.283999999999992
+conv,conv/ncbi-geneid/hsa:10458,KEGGREST (R),0.334000000000003
+conv,conv/ncbi-geneid/hsa:7157,KEGGREST (R),0.318999999999988
+conv,conv/ncbi-geneid/hsa:672,KEGGREST (R),0.317000000000007
+conv,conv/ncbi-geneid/hsa:675,KEGGREST (R),0.319999999999993
+conv,conv/ncbi-geneid/hsa:1956,KEGGREST (R),0.326999999999998
+conv,conv/ncbi-geneid/hsa:2064,KEGGREST (R),0.316000000000003
+conv,conv/ncbi-geneid/hsa:5290,KEGGREST (R),0.361000000000018
+conv,conv/ncbi-geneid/hsa:7422,KEGGREST (R),0.325999999999993
+conv,conv/ncbi-geneid/hsa:3845,KEGGREST (R),0.320999999999998
+conv,conv/ncbi-geneid/hsa:5970,KEGGREST (R),0.323999999999984
+conv,conv/ncbi-geneid/hsa:4609,KEGGREST (R),0.319999999999993
+conv,conv/ncbi-geneid/hsa:2475,KEGGREST (R),0.320000000000022
+conv,conv/ncbi-geneid/hsa:5728,KEGGREST (R),0.316000000000003
+conv,conv/ncbi-geneid/hsa:1029,KEGGREST (R),0.317000000000007
+conv,conv/ncbi-geneid/hsa:3553,KEGGREST (R),0.323000000000008
+conv,conv/ncbi-geneid/hsa:7124,KEGGREST (R),0.37299999999999
+conv,conv/ncbi-geneid/hsa:7040,KEGGREST (R),0.318000000000012
+conv,conv/ncbi-geneid/hsa:3091,KEGGREST (R),0.322000000000003
+conv,conv/ncbi-geneid/hsa:3105,KEGGREST (R),0.310000000000002
+conv,conv/ncbi-geneid/hsa:4318,KEGGREST (R),0.317000000000007
+conv,conv/ncbi-geneid/hsa:5243,KEGGREST (R),0.370999999999981
+conv,conv/ncbi-geneid/hsa:5468,KEGGREST (R),0.332999999999998
+conv,conv/ncbi-geneid/hsa:2099,KEGGREST (R),0.317999999999984
+conv,conv/ncbi-geneid/hsa:2100,KEGGREST (R),0.313999999999993
+conv,conv/ncbi-geneid/hsa:348,KEGGREST (R),0.317999999999984
+link,link/pathway/hsa:10458,KEGGREST (R),0.326999999999998
+link,link/pathway/hsa:7157,KEGGREST (R),0.323999999999984
+link,link/pathway/hsa:672,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:675,KEGGREST (R),0.321000000000026
+link,link/pathway/hsa:1956,KEGGREST (R),0.325999999999993
+link,link/pathway/hsa:2064,KEGGREST (R),0.323999999999984
+link,link/pathway/hsa:5290,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:7422,KEGGREST (R),0.321999999999974
+link,link/pathway/hsa:3845,KEGGREST (R),0.362000000000023
+link,link/pathway/hsa:5970,KEGGREST (R),0.319000000000017
+link,link/pathway/hsa:4609,KEGGREST (R),0.358000000000004
+link,link/pathway/hsa:2475,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:5728,KEGGREST (R),0.323000000000008
+link,link/pathway/hsa:1029,KEGGREST (R),0.319999999999993
+link,link/pathway/hsa:3553,KEGGREST (R),0.319999999999993
+link,link/pathway/hsa:7124,KEGGREST (R),0.317000000000007
+link,link/pathway/hsa:7040,KEGGREST (R),0.328000000000003
+link,link/pathway/hsa:3091,KEGGREST (R),0.317999999999984
+link,link/pathway/hsa:3105,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:4318,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:5243,KEGGREST (R),0.320999999999998
+link,link/pathway/hsa:5468,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:2099,KEGGREST (R),0.322000000000003
+link,link/pathway/hsa:2100,KEGGREST (R),0.319999999999993
+link,link/pathway/hsa:348,KEGGREST (R),0.321999999999974
+info,info/kegg,Bio.KEGG.REST (Python),1.1378032910000009
+info,info/pathway,Bio.KEGG.REST (Python),2.259181583
+info,info/brite,Bio.KEGG.REST (Python),2.052842709
+info,info/module,Bio.KEGG.REST (Python),2.6720954999999975
+info,info/ko,Bio.KEGG.REST (Python),2.0495354999999975
+info,info/genome,Bio.KEGG.REST (Python),2.668302875000002
+info,info/genes,Bio.KEGG.REST (Python),1.5442346250000014
+info,info/ligand,Bio.KEGG.REST (Python),1.8475924170000013
+info,info/compound,Bio.KEGG.REST (Python),1.7816276659999986
+info,info/glycan,Bio.KEGG.REST (Python),1.7350019169999982
+info,info/reaction,Bio.KEGG.REST (Python),1.8257569590000031
+info,info/rclass,Bio.KEGG.REST (Python),2.772457250000002
+info,info/enzyme,Bio.KEGG.REST (Python),2.105032792000003
+info,info/network,Bio.KEGG.REST (Python),1.5964059169999985
+info,info/variant,Bio.KEGG.REST (Python),1.537703124999993
+info,info/disease,Bio.KEGG.REST (Python),1.5240346659999986
+info,info/drug,Bio.KEGG.REST (Python),1.6628786249999976
+info,info/dgroup,Bio.KEGG.REST (Python),1.5764427080000019
+info,info/cel,Bio.KEGG.REST (Python),1.6372939580000008
+info,info/hsa,Bio.KEGG.REST (Python),1.7642906669999974
+info,info/eco,Bio.KEGG.REST (Python),1.634666666000001
+info,info/sce,Bio.KEGG.REST (Python),1.7353652919999973
+info,info/ath,Bio.KEGG.REST (Python),1.6279540830000059
+info,info/dme,Bio.KEGG.REST (Python),1.641668249999995
+info,info/mmu,Bio.KEGG.REST (Python),1.6841685840000054
+list,list/hsa:10458,Bio.KEGG.REST (Python),1.9267421659999968
+list,list/hsa:7157,Bio.KEGG.REST (Python),1.936393707999997
+list,list/hsa:672,Bio.KEGG.REST (Python),1.8476595420000024
+list,list/hsa:675,Bio.KEGG.REST (Python),1.7531275829999942
+list,list/hsa:1956,Bio.KEGG.REST (Python),1.8420920829999972
+list,list/hsa:2064,Bio.KEGG.REST (Python),1.9484575419999999
+list,list/hsa:5290,Bio.KEGG.REST (Python),1.9512792919999953
+list,list/hsa:7422,Bio.KEGG.REST (Python),1.8207060830000046
+list,list/hsa:3845,Bio.KEGG.REST (Python),1.8234489580000002
+list,list/hsa:5970,Bio.KEGG.REST (Python),1.700368791999992
+list,list/hsa:4609,Bio.KEGG.REST (Python),1.7480958329999936
+list,list/hsa:2475,Bio.KEGG.REST (Python),1.850909915999992
+list,list/hsa:5728,Bio.KEGG.REST (Python),1.951909624999999
+list,list/hsa:1029,Bio.KEGG.REST (Python),1.8555264999999963
+list,list/hsa:3553,Bio.KEGG.REST (Python),1.9439987909999985
+list,list/hsa:7124,Bio.KEGG.REST (Python),1.7259076659999977
+list,list/hsa:7040,Bio.KEGG.REST (Python),1.8532386669999994
+list,list/hsa:3091,Bio.KEGG.REST (Python),1.8632421249999993
+list,list/hsa:3105,Bio.KEGG.REST (Python),1.965623249999993
+list,list/hsa:4318,Bio.KEGG.REST (Python),1.9397121660000067
+list,list/hsa:5243,Bio.KEGG.REST (Python),1.8659156249999995
+list,list/hsa:5468,Bio.KEGG.REST (Python),1.92992979200001
+list,list/hsa:2099,Bio.KEGG.REST (Python),1.851579166999997
+list,list/hsa:2100,Bio.KEGG.REST (Python),2.0641882909999936
+list,list/hsa:348,Bio.KEGG.REST (Python),2.0410075000000063
+find,find/compound/glucose,Bio.KEGG.REST (Python),2.1579835419999824
+find,find/compound/fructose,Bio.KEGG.REST (Python),2.0562182500000006
+find,find/compound/galactose,Bio.KEGG.REST (Python),1.5416677080000056
+find,find/compound/mannose,Bio.KEGG.REST (Python),1.5113994169999785
+find,find/compound/sucrose,Bio.KEGG.REST (Python),1.7765986660000124
+find,find/compound/lactose,Bio.KEGG.REST (Python),1.6023077920000048
+find,find/compound/maltose,Bio.KEGG.REST (Python),1.6573601249999967
+find,find/compound/ribose,Bio.KEGG.REST (Python),1.5697123749999946
+find,find/compound/xylose,Bio.KEGG.REST (Python),1.5397108749999973
+find,find/compound/pyruvate,Bio.KEGG.REST (Python),1.621569041999976
+find,find/compound/citrate,Bio.KEGG.REST (Python),1.565646541999996
+find,find/compound/acetate,Bio.KEGG.REST (Python),2.136780625
+find,find/compound/ethanol,Bio.KEGG.REST (Python),1.971567666999988
+find,find/compound/cholesterol,Bio.KEGG.REST (Python),1.607041584000001
+find,find/compound/adenine,Bio.KEGG.REST (Python),1.6821092919999785
+find,find/compound/guanine,Bio.KEGG.REST (Python),1.7476097910000021
+find,find/compound/cytosine,Bio.KEGG.REST (Python),1.5476472919999935
+find,find/compound/thymine,Bio.KEGG.REST (Python),1.6381023749999883
+find,find/compound/uracil,Bio.KEGG.REST (Python),1.6441996249999988
+find,find/compound/glycine,Bio.KEGG.REST (Python),1.4687432089999959
+find,find/compound/alanine,Bio.KEGG.REST (Python),1.8178203749999966
+find,find/compound/valine,Bio.KEGG.REST (Python),1.5512657080000167
+find,find/compound/leucine,Bio.KEGG.REST (Python),1.5342897919999814
+find,find/compound/serine,Bio.KEGG.REST (Python),1.5143259580000006
+find,find/compound/cysteine,Bio.KEGG.REST (Python),1.536184416000026
+get,get/hsa:10458,Bio.KEGG.REST (Python),1.1664195419999999
+get,get/hsa:7157,Bio.KEGG.REST (Python),1.28126658299999
+get,get/hsa:672,Bio.KEGG.REST (Python),1.3383629169999836
+get,get/hsa:675,Bio.KEGG.REST (Python),1.4438358749999907
+get,get/hsa:1956,Bio.KEGG.REST (Python),1.4361752080000088
+get,get/hsa:2064,Bio.KEGG.REST (Python),1.296142792000012
+get,get/hsa:5290,Bio.KEGG.REST (Python),1.7445253340000022
+get,get/hsa:7422,Bio.KEGG.REST (Python),1.2338122499999997
+get,get/hsa:3845,Bio.KEGG.REST (Python),1.3781010419999973
+get,get/hsa:5970,Bio.KEGG.REST (Python),1.3974503330000232
+get,get/hsa:4609,Bio.KEGG.REST (Python),1.1026948749999974
+get,get/hsa:2475,Bio.KEGG.REST (Python),3.9425574170000175
+get,get/hsa:5728,Bio.KEGG.REST (Python),1.0311535000000163
+get,get/hsa:1029,Bio.KEGG.REST (Python),1.1159964160000015
+get,get/hsa:3553,Bio.KEGG.REST (Python),1.0675411670000017
+get,get/hsa:7124,Bio.KEGG.REST (Python),1.4035540419999961
+get,get/hsa:7040,Bio.KEGG.REST (Python),1.0284751670000105
+get,get/hsa:3091,Bio.KEGG.REST (Python),1.0417248329999893
+get,get/hsa:3105,Bio.KEGG.REST (Python),1.2218096670000023
+get,get/hsa:4318,Bio.KEGG.REST (Python),1.131122041999987
+get,get/hsa:5243,Bio.KEGG.REST (Python),1.145474207999996
+get,get/hsa:5468,Bio.KEGG.REST (Python),1.188769083000011
+get,get/hsa:2099,Bio.KEGG.REST (Python),1.0474247089999835
+get,get/hsa:2100,Bio.KEGG.REST (Python),1.0234109999999816
+get,get/hsa:348,Bio.KEGG.REST (Python),1.2552709159999722
+getseq,get/hsa:10458/aaseq,Bio.KEGG.REST (Python),1.4446801659999835
+getseq,get/hsa:7157/aaseq,Bio.KEGG.REST (Python),1.4872600829999953
+getseq,get/hsa:672/aaseq,Bio.KEGG.REST (Python),1.2895276249999768
+getseq,get/hsa:675/aaseq,Bio.KEGG.REST (Python),1.0388489580000169
+getseq,get/hsa:1956/aaseq,Bio.KEGG.REST (Python),1.0286315839999816
+getseq,get/hsa:2064/aaseq,Bio.KEGG.REST (Python),1.0227877500000204
+getseq,get/hsa:5290/aaseq,Bio.KEGG.REST (Python),1.0754189170000075
+getseq,get/hsa:7422/aaseq,Bio.KEGG.REST (Python),1.0341356670000152
+getseq,get/hsa:3845/aaseq,Bio.KEGG.REST (Python),1.0383827080000003
+getseq,get/hsa:5970/aaseq,Bio.KEGG.REST (Python),1.0346831249999866
+getseq,get/hsa:4609/aaseq,Bio.KEGG.REST (Python),1.10999187500002
+getseq,get/hsa:2475/aaseq,Bio.KEGG.REST (Python),1.0368355839999879
+getseq,get/hsa:5728/aaseq,Bio.KEGG.REST (Python),1.071545083000018
+getseq,get/hsa:1029/aaseq,Bio.KEGG.REST (Python),1.027099082999996
+getseq,get/hsa:3553/aaseq,Bio.KEGG.REST (Python),1.0338142919999882
+getseq,get/hsa:7124/aaseq,Bio.KEGG.REST (Python),1.1326496660000203
+getseq,get/hsa:7040/aaseq,Bio.KEGG.REST (Python),1.643319417000015
+getseq,get/hsa:3091/aaseq,Bio.KEGG.REST (Python),1.2871899580000274
+getseq,get/hsa:3105/aaseq,Bio.KEGG.REST (Python),1.3294830830000137
+getseq,get/hsa:4318/aaseq,Bio.KEGG.REST (Python),1.2646227079999903
+getseq,get/hsa:5243/aaseq,Bio.KEGG.REST (Python),1.2711517089999802
+getseq,get/hsa:5468/aaseq,Bio.KEGG.REST (Python),1.2695187499999747
+getseq,get/hsa:2099/aaseq,Bio.KEGG.REST (Python),1.2725486670000237
+getseq,get/hsa:2100/aaseq,Bio.KEGG.REST (Python),1.3201035839999804
+getseq,get/hsa:348/aaseq,Bio.KEGG.REST (Python),1.3887070000000108
+conv,conv/ncbi-geneid/hsa:10458,Bio.KEGG.REST (Python),1.3768580839999913
+conv,conv/ncbi-geneid/hsa:7157,Bio.KEGG.REST (Python),1.3060283749999826
+conv,conv/ncbi-geneid/hsa:672,Bio.KEGG.REST (Python),1.419429124999965
+conv,conv/ncbi-geneid/hsa:675,Bio.KEGG.REST (Python),1.383622833000004
+conv,conv/ncbi-geneid/hsa:1956,Bio.KEGG.REST (Python),1.3958427910000069
+conv,conv/ncbi-geneid/hsa:2064,Bio.KEGG.REST (Python),1.5400292080000213
+conv,conv/ncbi-geneid/hsa:5290,Bio.KEGG.REST (Python),4.613783832999957
+conv,conv/ncbi-geneid/hsa:7422,Bio.KEGG.REST (Python),1.3350833339999895
+conv,conv/ncbi-geneid/hsa:3845,Bio.KEGG.REST (Python),1.3941767910000067
+conv,conv/ncbi-geneid/hsa:5970,Bio.KEGG.REST (Python),1.3142880839999975
+conv,conv/ncbi-geneid/hsa:4609,Bio.KEGG.REST (Python),1.3238829589999455
+conv,conv/ncbi-geneid/hsa:2475,Bio.KEGG.REST (Python),1.3569682090000015
+conv,conv/ncbi-geneid/hsa:5728,Bio.KEGG.REST (Python),1.3128397079999559
+conv,conv/ncbi-geneid/hsa:1029,Bio.KEGG.REST (Python),1.3374027080000133
+conv,conv/ncbi-geneid/hsa:3553,Bio.KEGG.REST (Python),1.3272456669999997
+conv,conv/ncbi-geneid/hsa:7124,Bio.KEGG.REST (Python),1.3378876660000287
+conv,conv/ncbi-geneid/hsa:7040,Bio.KEGG.REST (Python),1.4399041670000088
+conv,conv/ncbi-geneid/hsa:3091,Bio.KEGG.REST (Python),1.3349166659999696
+conv,conv/ncbi-geneid/hsa:3105,Bio.KEGG.REST (Python),1.3862223749999885
+conv,conv/ncbi-geneid/hsa:4318,Bio.KEGG.REST (Python),1.2973417499999869
+conv,conv/ncbi-geneid/hsa:5243,Bio.KEGG.REST (Python),1.3109360419999803
+conv,conv/ncbi-geneid/hsa:5468,Bio.KEGG.REST (Python),1.3305285829999889
+conv,conv/ncbi-geneid/hsa:2099,Bio.KEGG.REST (Python),1.3210788339999908
+conv,conv/ncbi-geneid/hsa:2100,Bio.KEGG.REST (Python),1.3180549999999585
+conv,conv/ncbi-geneid/hsa:348,Bio.KEGG.REST (Python),1.4988959589999808
+link,link/pathway/hsa:10458,Bio.KEGG.REST (Python),1.3288588749999803
+link,link/pathway/hsa:7157,Bio.KEGG.REST (Python),1.3457278750000228
+link,link/pathway/hsa:672,Bio.KEGG.REST (Python),1.3125581249999527
+link,link/pathway/hsa:675,Bio.KEGG.REST (Python),1.3022608750000018
+link,link/pathway/hsa:1956,Bio.KEGG.REST (Python),1.3175900830000273
+link,link/pathway/hsa:2064,Bio.KEGG.REST (Python),1.3273051250000094
+link,link/pathway/hsa:5290,Bio.KEGG.REST (Python),1.3433206249999898
+link,link/pathway/hsa:7422,Bio.KEGG.REST (Python),1.322914959000002
+link,link/pathway/hsa:3845,Bio.KEGG.REST (Python),1.1359465829999635
+link,link/pathway/hsa:5970,Bio.KEGG.REST (Python),1.1417904580000027
+link,link/pathway/hsa:4609,Bio.KEGG.REST (Python),1.3258713749999629
+link,link/pathway/hsa:2475,Bio.KEGG.REST (Python),1.1387891669999703
+link,link/pathway/hsa:5728,Bio.KEGG.REST (Python),1.0752243750000048
+link,link/pathway/hsa:1029,Bio.KEGG.REST (Python),1.4973894589999759
+link,link/pathway/hsa:3553,Bio.KEGG.REST (Python),1.4009690409999962
+link,link/pathway/hsa:7124,Bio.KEGG.REST (Python),1.475534916000015
+link,link/pathway/hsa:7040,Bio.KEGG.REST (Python),1.3431667920000336
+link,link/pathway/hsa:3091,Bio.KEGG.REST (Python),1.3109967920000258
+link,link/pathway/hsa:3105,Bio.KEGG.REST (Python),1.4512476670000183
+link,link/pathway/hsa:4318,Bio.KEGG.REST (Python),1.4566849999999931
+link,link/pathway/hsa:5243,Bio.KEGG.REST (Python),1.424360374999992
+link,link/pathway/hsa:5468,Bio.KEGG.REST (Python),1.3410890829999857
+link,link/pathway/hsa:2099,Bio.KEGG.REST (Python),1.3325150830000325
+link,link/pathway/hsa:2100,Bio.KEGG.REST (Python),1.3314765419999617
+link,link/pathway/hsa:348,Bio.KEGG.REST (Python),1.3103822079999645
+info,info/kegg,curl,1.322392
+info,info/pathway,curl,1.897206
+info,info/brite,curl,1.796503
+info,info/module,curl,1.928149
+info,info/ko,curl,2.010719
+info,info/genome,curl,2.068994
+info,info/genes,curl,1.330207
+info,info/ligand,curl,1.637724
+info,info/compound,curl,1.57954
+info,info/glycan,curl,1.517033
+info,info/reaction,curl,1.496665
+info,info/rclass,curl,1.555349
+info,info/enzyme,curl,1.838024
+info,info/network,curl,1.565784
+info,info/variant,curl,1.610395
+info,info/disease,curl,1.524115
+info,info/drug,curl,1.558095
+info,info/dgroup,curl,1.495107
+info,info/cel,curl,1.559044
+info,info/hsa,curl,1.56265
+info,info/eco,curl,1.578661
+info,info/sce,curl,1.535565
+info,info/ath,curl,1.54854
+info,info/dme,curl,1.549765
+info,info/mmu,curl,1.546549
+list,list/hsa:10458,curl,1.754025
+list,list/hsa:7157,curl,1.659672
+list,list/hsa:672,curl,1.692028
+list,list/hsa:675,curl,1.667961
+list,list/hsa:1956,curl,1.669167
+list,list/hsa:2064,curl,1.710764
+list,list/hsa:5290,curl,1.723103
+list,list/hsa:7422,curl,1.718145
+list,list/hsa:3845,curl,1.762285
+list,list/hsa:5970,curl,1.659278
+list,list/hsa:4609,curl,1.734134
+list,list/hsa:2475,curl,1.792645
+list,list/hsa:5728,curl,1.728749
+list,list/hsa:1029,curl,1.712311
+list,list/hsa:3553,curl,1.719025
+list,list/hsa:7124,curl,1.705707
+list,list/hsa:7040,curl,1.702842
+list,list/hsa:3091,curl,1.757566
+list,list/hsa:3105,curl,1.762245
+list,list/hsa:4318,curl,1.700349
+list,list/hsa:5243,curl,1.75333
+list,list/hsa:5468,curl,1.711922
+list,list/hsa:2099,curl,1.724266
+list,list/hsa:2100,curl,1.771723
+list,list/hsa:348,curl,1.726561
+find,find/compound/glucose,curl,2.060762
+find,find/compound/fructose,curl,1.730552
+find,find/compound/galactose,curl,1.48732
+find,find/compound/mannose,curl,1.506387
+find,find/compound/sucrose,curl,1.447524
+find,find/compound/lactose,curl,1.523535
+find,find/compound/maltose,curl,1.479297
+find,find/compound/ribose,curl,1.519659
+find,find/compound/xylose,curl,1.47697
+find,find/compound/pyruvate,curl,1.523155
+find,find/compound/citrate,curl,1.504457
+find,find/compound/acetate,curl,2.030077
+find,find/compound/ethanol,curl,1.708204
+find,find/compound/cholesterol,curl,1.52411
+find,find/compound/adenine,curl,1.534985
+find,find/compound/guanine,curl,1.522478
+find,find/compound/cytosine,curl,1.535496
+find,find/compound/thymine,curl,1.51614
+find,find/compound/uracil,curl,1.440645
+find,find/compound/glycine,curl,1.459744
+find,find/compound/alanine,curl,1.688229
+find,find/compound/valine,curl,1.652786
+find,find/compound/leucine,curl,1.473687
+find,find/compound/serine,curl,1.570675
+find,find/compound/cysteine,curl,1.499064
+get,get/hsa:10458,curl,1.102962
+get,get/hsa:7157,curl,1.28206
+get,get/hsa:672,curl,1.258738
+get,get/hsa:675,curl,1.325361
+get,get/hsa:1956,curl,1.685351
+get,get/hsa:2064,curl,1.291893
+get,get/hsa:5290,curl,1.585455
+get,get/hsa:7422,curl,1.021244
+get,get/hsa:3845,curl,1.374268
+get,get/hsa:5970,curl,1.344754
+get,get/hsa:4609,curl,1.299873
+get,get/hsa:2475,curl,1.290724
+get,get/hsa:5728,curl,1.088543
+get,get/hsa:1029,curl,1.038785
+get,get/hsa:3553,curl,1.039356
+get,get/hsa:7124,curl,1.289689
+get,get/hsa:7040,curl,1.051094
+get,get/hsa:3091,curl,1.024622
+get,get/hsa:3105,curl,1.030356
+get,get/hsa:4318,curl,1.036827
+get,get/hsa:5243,curl,1.0279
+get,get/hsa:5468,curl,1.022028
+get,get/hsa:2099,curl,1.073177
+get,get/hsa:2100,curl,1.068155
+get,get/hsa:348,curl,1.077396
+getseq,get/hsa:10458/aaseq,curl,1.03664
+getseq,get/hsa:7157/aaseq,curl,1.021925
+getseq,get/hsa:672/aaseq,curl,1.075162
+getseq,get/hsa:675/aaseq,curl,1.076278
+getseq,get/hsa:1956/aaseq,curl,1.134205
+getseq,get/hsa:2064/aaseq,curl,1.097801
+getseq,get/hsa:5290/aaseq,curl,1.023933
+getseq,get/hsa:7422/aaseq,curl,1.184752
+getseq,get/hsa:3845/aaseq,curl,1.091252
+getseq,get/hsa:5970/aaseq,curl,1.028201
+getseq,get/hsa:4609/aaseq,curl,1.176584
+getseq,get/hsa:2475/aaseq,curl,1.035608
+getseq,get/hsa:5728/aaseq,curl,1.123888
+getseq,get/hsa:1029/aaseq,curl,1.41752
+getseq,get/hsa:3553/aaseq,curl,1.059988
+getseq,get/hsa:7124/aaseq,curl,1.131823
+getseq,get/hsa:7040/aaseq,curl,1.320676
+getseq,get/hsa:3091/aaseq,curl,1.34669
+getseq,get/hsa:3105/aaseq,curl,1.338214
+getseq,get/hsa:4318/aaseq,curl,1.278413
+getseq,get/hsa:5243/aaseq,curl,1.352818
+getseq,get/hsa:5468/aaseq,curl,1.342408
+getseq,get/hsa:2099/aaseq,curl,1.3558
+getseq,get/hsa:2100/aaseq,curl,1.369172
+getseq,get/hsa:348/aaseq,curl,1.266235
+conv,conv/ncbi-geneid/hsa:10458,curl,1.308543
+conv,conv/ncbi-geneid/hsa:7157,curl,1.303341
+conv,conv/ncbi-geneid/hsa:672,curl,1.300993
+conv,conv/ncbi-geneid/hsa:675,curl,1.406502
+conv,conv/ncbi-geneid/hsa:1956,curl,1.330483
+conv,conv/ncbi-geneid/hsa:2064,curl,1.321999
+conv,conv/ncbi-geneid/hsa:5290,curl,1.298372
+conv,conv/ncbi-geneid/hsa:7422,curl,1.386182
+conv,conv/ncbi-geneid/hsa:3845,curl,1.321902
+conv,conv/ncbi-geneid/hsa:5970,curl,1.30425
+conv,conv/ncbi-geneid/hsa:4609,curl,1.311538
+conv,conv/ncbi-geneid/hsa:2475,curl,1.365007
+conv,conv/ncbi-geneid/hsa:5728,curl,1.331298
+conv,conv/ncbi-geneid/hsa:1029,curl,1.378926
+conv,conv/ncbi-geneid/hsa:3553,curl,1.360778
+conv,conv/ncbi-geneid/hsa:7124,curl,1.332136
+conv,conv/ncbi-geneid/hsa:7040,curl,1.30291
+conv,conv/ncbi-geneid/hsa:3091,curl,1.305841
+conv,conv/ncbi-geneid/hsa:3105,curl,1.323523
+conv,conv/ncbi-geneid/hsa:4318,curl,1.344628
+conv,conv/ncbi-geneid/hsa:5243,curl,1.293187
+conv,conv/ncbi-geneid/hsa:5468,curl,1.339419
+conv,conv/ncbi-geneid/hsa:2099,curl,1.311107
+conv,conv/ncbi-geneid/hsa:2100,curl,1.332708
+conv,conv/ncbi-geneid/hsa:348,curl,1.324312
+link,link/pathway/hsa:10458,curl,1.391532
+link,link/pathway/hsa:7157,curl,1.31629
+link,link/pathway/hsa:672,curl,1.349629
+link,link/pathway/hsa:675,curl,1.305197
+link,link/pathway/hsa:1956,curl,1.310748
+link,link/pathway/hsa:2064,curl,1.30643
+link,link/pathway/hsa:5290,curl,1.333224
+link,link/pathway/hsa:7422,curl,1.323807
+link,link/pathway/hsa:3845,curl,1.348449
+link,link/pathway/hsa:5970,curl,1.076229
+link,link/pathway/hsa:4609,curl,1.313767
+link,link/pathway/hsa:2475,curl,1.067359
+link,link/pathway/hsa:5728,curl,1.093161
+link,link/pathway/hsa:1029,curl,1.319468
+link,link/pathway/hsa:3553,curl,1.311523
+link,link/pathway/hsa:7124,curl,1.318955
+link,link/pathway/hsa:7040,curl,1.332867
+link,link/pathway/hsa:3091,curl,1.346838
+link,link/pathway/hsa:3105,curl,1.322622
+link,link/pathway/hsa:4318,curl,1.316255
+link,link/pathway/hsa:5243,curl,1.336
+link,link/pathway/hsa:5468,curl,1.382411
+link,link/pathway/hsa:2099,curl,1.620365
+link,link/pathway/hsa:2100,curl,1.324806
+link,link/pathway/hsa:348,curl,1.379263
+ddi,ddi/D00006,curl,1.808338
+ddi,ddi/D00008,curl,1.886911
+ddi,ddi/D00015,curl,1.755841
+ddi,ddi/D00018,curl,1.823794
+ddi,ddi/D00020,curl,1.782555
+ddi,ddi/D00028,curl,1.900043
+ddi,ddi/D00032,curl,1.908649
+ddi,ddi/D00033,curl,1.95868
+ddi,ddi/D00043,curl,2.023666
+ddi,ddi/D00045,curl,1.604179
+ddi,ddi/D00049,curl,1.914641
+ddi,ddi/D00052,curl,2.05876
+ddi,ddi/D00058,curl,1.910477
+ddi,ddi/D00059,curl,2.11394
+ddi,ddi/D00060,curl,1.95688
+ddi,ddi/D00062,curl,1.600534
+ddi,ddi/D00063,curl,1.865384
+ddi,ddi/D00066,curl,1.60293
+ddi,ddi/D00067,curl,1.639928
+ddi,ddi/D00068,curl,1.638694
+ddi,ddi/D00069,curl,1.718556
+ddi,ddi/D00070,curl,1.607039
+ddi,ddi/D00073,curl,1.720881
+ddi,ddi/D00074,curl,1.811919
+ddi,ddi/D00075,curl,3.444944

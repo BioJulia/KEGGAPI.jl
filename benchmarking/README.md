@@ -1,32 +1,21 @@
 # Benchmarking
 
 This benchmark compares `KEGGAPI.jl`, `KEGGREST` for R, `Bio.KEGG.REST` for
-Python, and raw `curl` across these KEGG operations:
+Python, and raw `curl`. [`cases.tsv`](cases.tsv) defines 25 distinct requests for
+each operation: `info`, `list`, `find`, `get`, amino-acid `get`, `conv`, `link`,
+and `ddi`. Single-entry gene and drug requests keep response sizes bounded,
+while the `info` and `find` cases span valid databases and search terms.
+KEGGREST and Bio.KEGG.REST do not wrap `ddi`, so their distributions omit that
+operation.
 
-| Operation | Query                          | Covered by            |
-|:----------|:-------------------------------|:----------------------|
-| `Info`    | `info/kegg`                    | all                   |
-| `List`    | `list/pathway`                 | all                   |
-| `Find`    | `find/compound/glucose`        | all                   |
-| `Get`     | `get/hsa:10458`                | all                   |
-| `GetSeq`  | `get/hsa:10458/aaseq`          | all                   |
-| `Conv`    | `conv/ncbi-geneid/eco:b0002`   | all                   |
-| `Link`    | `link/pathway/hsa:10458`       | all                   |
-| `Ddi`     | `ddi/D00564`                   | KEGGAPI.jl, curl only |
+Each interface runs in one process, which excludes interpreter startup. One
+warm-up call per operation precedes the measurements. Calls are spaced by
+`--pause` seconds, 0.4 by default, to stay below KEGG's limit of three requests
+per second. The CSV retains each request timing, and the plot shows its
+distribution instead of reducing all requests to one value.
 
-KEGGREST and Bio.KEGG.REST do not wrap `ddi`, so the figure omits their bars for
-that operation. The `conv` case uses `ncbi-geneid` rather than
-`ncbi-proteinid` because Bio.KEGG.REST only recognises the legacy outside-database
-names (`ncbi-gi | ncbi-geneid | uniprot`) and rejects the newer ones.
-
-`KEGGAPI.jl`'s chunked `kegg_get` waits between requests to respect KEGG's rate
-limit. The Julia runner passes `request_delay = 0.0` because it already spaces
-calls and must not time the same delay twice.
-
-Each interface runs every operation in one process, which excludes interpreter
-startup from the measurements. The runner discards a warm-up call before the
-measured replicates and spaces calls by `--pause`
-seconds (default 0.4 s) to stay under KEGG's limit of 3 requests per second.
+`KEGGAPI.jl`'s chunked `kegg_get` can wait between requests. The Julia runner
+passes `request_delay = 0.0` because the runner already spaces calls.
 
 ## Running
 
@@ -36,13 +25,13 @@ One-time setup of the isolated benchmarking environment:
 julia --project=benchmarking -e 'using Pkg; Pkg.develop(PackageSpec(path=".")); Pkg.instantiate()'
 ```
 
-Run the benchmarks (writes `benchmark_compare.csv`):
+Run the benchmarks, which writes `benchmark_compare.csv`:
 
 ```bash
-julia --project=benchmarking benchmarking/run_benchmarks.jl --nreps 15
+julia --project=benchmarking benchmarking/run_benchmarks.jl
 ```
 
-Regenerate the figure used in the main README (writes `benchmark_compare.png`):
+Regenerate the SVG used in the main README and its PNG counterpart:
 
 ```bash
 julia --project=benchmarking benchmarking/plot_benchmarks.jl
@@ -100,26 +89,33 @@ Set `JULIA`, `RSCRIPT`, or `PYTHON` to select an interpreter. For example, use
 
 ```bash
 PYTHON=/tmp/kegg_bench_venv/bin/python \
-  julia --project=benchmarking benchmarking/run_benchmarks.jl --nreps 15
+  julia --project=benchmarking benchmarking/run_benchmarks.jl
 ```
+
+Use `--only julia,curl` to select interfaces. `--nreps N` repeats all 25 cases
+for each selected operation.
 
 ## Layout
 
 | Path                     | Purpose                                            |
 |:-------------------------|:---------------------------------------------------|
-| `run_benchmarks.jl`      | Orchestrator: runs each interface, writes the CSV   |
-| `plot_benchmarks.jl`     | Renders the CSV to `benchmark_compare.png`          |
+| `cases.tsv`              | The 25 requests for each operation                  |
+| `run_benchmarks.jl`      | Runs each interface and writes raw timings          |
+| `plot_benchmarks.jl`     | Plots the request-time distributions                |
+| `write_ci_results.jl`    | Converts Julia timings to CI benchmark JSON         |
 | `runners/bench_julia.jl` | KEGGAPI.jl timings                                  |
 | `runners/bench_r.R`      | KEGGREST timings                                    |
 | `runners/bench_python.py`| Bio.KEGG.REST timings                               |
 | `runners/bench_curl.sh`  | Raw REST timings via `curl -w %{time_total}`        |
 
-Each runner prints one `Function,Language,seconds` row per replicate. Run an
+Each runner prints one `Function,Request,Language,Seconds` row per call. Run an
 individual runner with:
 
 ```bash
-julia --project=benchmarking benchmarking/runners/bench_julia.jl 5 0.4
+julia --project=benchmarking benchmarking/runners/bench_julia.jl 1 0.4
 ```
 
 Network round-trip time to `rest.kegg.jp` dominates these results. Compare
 interfaces within one run because location and server load vary between runs.
+CI records the median Julia time for each operation and warns, without failing
+the job, when it exceeds the previous value by the configured threshold.
