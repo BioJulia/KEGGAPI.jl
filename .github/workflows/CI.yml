@@ -36,6 +36,8 @@ jobs:
       matrix:
         version:
           - '1.10'
+          # issue #44: Keep the latest stable Julia release in the test matrix.
+          - '1'
           - 'nightly'
         os:
           - ubuntu-latest
