@@ -1,43 +1,89 @@
-"""Python runner: times Bio.KEGG.REST calls, one CSV row per replicate.
+"""Time Bio.KEGG.REST calls and print one CSV row per request.
 
-Usage: python3 runners/bench_python.py <nreps> <sleep_seconds>
+Usage: python3 bench_python.py <nreps> <pause_seconds>
 """
+import csv
+import os
 import sys
 import time
 
 import Bio.KEGG.REST as BK
 
-NREPS = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+NREPS = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 PAUSE = float(sys.argv[2]) if len(sys.argv) > 2 else 0.4
-
-# (label, thunk) pairs -- keep in sync with the other runners. Bio.KEGG.REST has
-# no ddi wrapper, so that case is absent here and reported as unsupported.
-CASES = [
-    ("info", lambda: BK.kegg_info("kegg")),
-    ("list", lambda: BK.kegg_list("pathway")),
-    ("find", lambda: BK.kegg_find("compound", "glucose")),
-    ("get", lambda: BK.kegg_get("hsa:10458")),
-    ("getseq", lambda: BK.kegg_get("hsa:10458", "aaseq")),
-    ("conv", lambda: BK.kegg_conv("ncbi-geneid", "eco:b0002")),
-    ("link", lambda: BK.kegg_link("pathway", "hsa:10458")),
-]
-
-# Must match the interface name in run_benchmarks.jl.
+CASE_FILE = os.path.join(os.path.dirname(__file__), "..", "cases.tsv")
 LABEL = "Bio.KEGG.REST (Python)"
 
 
+def load_cases(path):
+    with open(path, newline="", encoding="utf-8") as handle:
+        return list(csv.DictReader(handle, delimiter="\t"))
+
+
+def request_path(case):
+    op = case["operation"]
+    arg1 = case["argument1"]
+    arg2 = case["argument2"]
+    if op == "info":
+        return "info/{}".format(arg1)
+    if op == "list":
+        return "list/{}".format(arg1)
+    if op == "find":
+        return "find/{}/{}".format(arg1, arg2)
+    if op == "get":
+        return "get/{}".format(arg1)
+    if op == "getseq":
+        return "get/{}/aaseq".format(arg1)
+    if op == "conv":
+        return "conv/{}/{}".format(arg1, arg2)
+    if op == "link":
+        return "link/{}/{}".format(arg1, arg2)
+    raise ValueError("Unknown benchmark operation: {}".format(op))
+
+
+def run_case(case):
+    op = case["operation"]
+    arg1 = case["argument1"]
+    arg2 = case["argument2"]
+    if op == "info":
+        response = BK.kegg_info(arg1)
+    elif op == "list":
+        response = BK.kegg_list(arg1)
+    elif op == "find":
+        response = BK.kegg_find(arg1, arg2)
+    elif op == "get":
+        response = BK.kegg_get(arg1)
+    elif op == "getseq":
+        response = BK.kegg_get(arg1, "aaseq")
+    elif op == "conv":
+        response = BK.kegg_conv(arg1, arg2)
+    elif op == "link":
+        response = BK.kegg_link(arg1, arg2)
+    else:
+        raise ValueError("Unknown benchmark operation: {}".format(op))
+    response.read()
+
+
 def timeit(fn):
-    t0 = time.perf_counter()
-    fn().read()
-    return time.perf_counter() - t0
+    start = time.perf_counter()
+    fn()
+    return time.perf_counter() - start
 
 
-# Warm up (connection setup, imports) before the measured replicates.
-for _, thunk in CASES:
-    thunk().read()
+# Bio.KEGG.REST has no DDI wrapper.
+CASES = [case for case in load_cases(CASE_FILE) if case["operation"] != "ddi"]
+
+# Warm up each operation once so connection setup is absent from measurements.
+warmed = set()
+for case in CASES:
+    if case["operation"] in warmed:
+        continue
+    run_case(case)
+    warmed.add(case["operation"])
     time.sleep(PAUSE)
 
 for _ in range(NREPS):
-    for label, thunk in CASES:
-        print("{},{},{}".format(label, LABEL, timeit(thunk)))
+    for case in CASES:
+        elapsed = timeit(lambda: run_case(case))
+        print("{},{},{},{}".format(case["operation"], request_path(case), LABEL, elapsed))
         time.sleep(PAUSE)

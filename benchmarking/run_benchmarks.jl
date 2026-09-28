@@ -1,118 +1,134 @@
 #!/usr/bin/env julia
 #
-# Benchmark KEGGAPI.jl against KEGGREST (R), Bio.KEGG.REST (Python) and raw curl.
+# Benchmark KEGGAPI.jl against KEGGREST, Bio.KEGG.REST, and raw curl.
 #
-#     julia --project=benchmarking benchmarking/run_benchmarks.jl [--nreps N] [--pause S]
+#     julia --project=benchmarking benchmarking/run_benchmarks.jl
 #
-# Each interface runs the same three operations (info/kegg, list/pathway,
-# get/hsa:10458) inside a single process, so what is measured is per-call time
-# rather than interpreter startup. Interfaces whose dependencies are missing are
-# reported and skipped, so this runs even with only Julia available.
-#
-# Writes benchmark_compare.csv (Function,Language,Mean,SD) next to this script.
-
-using Statistics
-using Printf
+# Each runner emits one timing for every request in cases.tsv. Optional
+# interfaces are skipped when their dependencies are unavailable.
 
 const BENCHDIR = @__DIR__
 const RUNNERS = joinpath(BENCHDIR, "runners")
+const CASE_FILE = joinpath(BENCHDIR, "cases.tsv")
+const OPERATIONS = Set(["info", "list", "find", "get", "getseq", "conv", "link", "ddi"])
 
-# ------------------------------------------------------------------ CLI parsing
+function validate_cases(path)
+    lines = readlines(path)
+    first(lines) == "operation\targument1\targument2" || error("Unexpected header in $path")
+    rows = [Tuple(split(line, '\t'; keepempty = true)) for line in Iterators.drop(lines, 1)]
+    all(length(row) == 3 for row in rows) || error("Every benchmark case must have three fields")
+    length(unique(rows)) == length(rows) || error("Benchmark cases must be unique")
+    counts = Dict(operation => count(row -> first(row) == operation, rows) for operation in OPERATIONS)
+    Set(first.(rows)) == OPERATIONS || error("Unexpected benchmark operations in $path")
+    all(==(25), values(counts)) || error("Each operation must have exactly 25 benchmark cases")
+    return nothing
+end
+
 function parse_args(args)
-    nreps, pause = 5, 0.4
+    nreps, pause = 1, 0.4
+    only = Set(["julia", "r", "python", "curl"])
+    output = joinpath(BENCHDIR, "benchmark_compare.csv")
     i = 1
     while i <= length(args)
+        i == length(args) && error("Missing value for $(args[i])")
         if args[i] == "--nreps"
-            nreps = parse(Int, args[i + 1]); i += 2
+            nreps = parse(Int, args[i + 1])
         elseif args[i] == "--pause"
-            pause = parse(Float64, args[i + 1]); i += 2
+            pause = parse(Float64, args[i + 1])
+        elseif args[i] == "--only"
+            only = Set(split(args[i + 1], ','))
+        elseif args[i] == "--output"
+            output = abspath(args[i + 1])
         else
             error("Unknown argument: $(args[i])")
         end
+        i += 2
     end
-    return nreps, pause
+    nreps > 0 || error("--nreps must be positive")
+    pause >= 0 || error("--pause must be nonnegative")
+    valid = Set(["julia", "r", "python", "curl"])
+    only ⊆ valid || error("--only accepts a comma-separated subset of $(join(sort!(collect(valid)), ", "))")
+    return (; nreps, pause, only, output)
 end
 
-const NREPS, PAUSE = parse_args(ARGS)
-
-# ------------------------------------------------------------------ Interfaces
-# `probe` must succeed for the interface to be benchmarked.
 struct Interface
+    key::String
     name::String
     probe::Cmd
     run::Cmd
 end
 
-# Interpreters are overridable so a virtualenv / custom R can be used, e.g.
-#   PYTHON=/path/to/venv/bin/python julia --project=benchmarking ...
+const OPTIONS = parse_args(ARGS)
+validate_cases(CASE_FILE)
 const JULIA = get(ENV, "JULIA", "julia")
 const RSCRIPT = get(ENV, "RSCRIPT", "Rscript")
 const PYTHON = get(ENV, "PYTHON", "python3")
 
 interfaces = [
     Interface(
+        "julia",
         "KEGGAPI.jl",
         `$JULIA --version`,
-        `$JULIA --project=$BENCHDIR $(joinpath(RUNNERS, "bench_julia.jl")) $NREPS $PAUSE`,
+        `$JULIA --project=$BENCHDIR $(joinpath(RUNNERS, "bench_julia.jl")) $(OPTIONS.nreps) $(OPTIONS.pause)`,
     ),
     Interface(
+        "r",
         "KEGGREST (R)",
         `$RSCRIPT -e "suppressMessages(library(KEGGREST))"`,
-        `$RSCRIPT $(joinpath(RUNNERS, "bench_r.R")) $NREPS $PAUSE`,
+        `$RSCRIPT $(joinpath(RUNNERS, "bench_r.R")) $(OPTIONS.nreps) $(OPTIONS.pause)`,
     ),
     Interface(
+        "python",
         "Bio.KEGG.REST (Python)",
         `$PYTHON -c "import Bio.KEGG.REST"`,
-        `$PYTHON $(joinpath(RUNNERS, "bench_python.py")) $NREPS $PAUSE`,
+        `$PYTHON $(joinpath(RUNNERS, "bench_python.py")) $(OPTIONS.nreps) $(OPTIONS.pause)`,
     ),
     Interface(
         "curl",
+        "curl",
         `curl --version`,
-        `bash $(joinpath(RUNNERS, "bench_curl.sh")) $NREPS $PAUSE`,
+        `bash $(joinpath(RUNNERS, "bench_curl.sh")) $(OPTIONS.nreps) $(OPTIONS.pause)`,
     ),
 ]
 
-available(iface) = success(pipeline(iface.probe, stdout = devnull, stderr = devnull))
+available(interface) = success(pipeline(interface.probe, stdout = devnull, stderr = devnull))
 
-# ------------------------------------------------------------------ Run
-samples = Dict{Tuple{String, String}, Vector{Float64}}()
-for iface in interfaces
-    if !available(iface)
-        @warn "Skipping $(iface.name): dependencies not installed" probe = iface.probe
+samples = NamedTuple{(:operation, :request, :language, :seconds), Tuple{String, String, String, Float64}}[]
+for interface in interfaces
+    interface.key in OPTIONS.only || continue
+    if !available(interface)
+        @warn "Skipping $(interface.name): dependencies not installed" probe = interface.probe
         continue
     end
 
-    @info "Benchmarking $(iface.name) ($NREPS replicates)..."
-    output = try
-        read(iface.run, String)
-    catch e
-        @warn "Skipping $(iface.name): runner failed" exception = e
-        continue
-    end
-
+    operation_count = interface.key in ("r", "python") ? 7 : 8
+    expected_samples = 25 * operation_count * OPTIONS.nreps
+    @info "Benchmarking $(interface.name)" requests = expected_samples
+    output = read(interface.run, String)
+    initial_length = length(samples)
     for line in eachline(IOBuffer(output))
+        isempty(strip(line)) && continue
         fields = split(strip(line), ',')
-        length(fields) == 3 || continue  # NOTE: ignore any incidental stdout noise
-        fn, lang, secs = fields
-        push!(get!(samples, (String(fn), String(lang)), Float64[]), parse(Float64, secs))
+        length(fields) == 4 || error("Malformed output from $(interface.name): $line")
+        operation, request, language, seconds = fields
+        language == interface.name || error("Unexpected interface label '$language'")
+        elapsed = parse(Float64, seconds)
+        isfinite(elapsed) && elapsed >= 0 || error("Invalid timing from $(interface.name): $seconds")
+        push!(samples, (; operation = String(operation), request = String(request), language = String(language), seconds = elapsed))
     end
+    length(samples) - initial_length == expected_samples ||
+        error("Expected $expected_samples results from $(interface.name)")
 end
 
-isempty(samples) && error("No interface could be benchmarked.")
+isempty(samples) && error("No interface could be benchmarked")
 
-# Every operation x interface pair gets a row. Pairs with no samples -- an
-# interface that was skipped, or an operation it does not wrap (e.g. ddi in
-# KEGGREST) -- are written with an empty median rather than omitted.
-const OPERATIONS = ["info", "list", "find", "get", "getseq", "conv", "link", "ddi"]
-
-observed = unique(first.(keys(samples)))
-operations = vcat(OPERATIONS, sort([op for op in observed if op ∉ OPERATIONS]))
-
-outfile = joinpath(BENCHDIR, "benchmark_compare.csv")
-open(outfile, "w") do io
-    println(io, "Function,Language,Median")
-    for op in operations, iface in interfaces
-        times = get(samples, (op, iface.name), Float64[])
-        println(io, "$op,$(iface.name),", isempty(times) ? "" : median(times))
+# issue #45: retain every request timing so plots and CI use the distribution,
+# rather than reducing repeated calls to one median before writing the file.
+mkpath(dirname(OPTIONS.output))
+open(OPTIONS.output, "w") do io
+    println(io, "Function,Request,Language,Seconds")
+    for sample in samples
+        println(io, "$(sample.operation),$(sample.request),$(sample.language),$(sample.seconds)")
     end
 end
+@info "Wrote $(OPTIONS.output)" samples = length(samples)
