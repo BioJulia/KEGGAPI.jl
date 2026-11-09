@@ -50,9 +50,9 @@ begin
 		mean = [NaN,NaN]
 	)
 
-	# Append the new rows to the DataFrame
-	append!(new_rows, plot_data)
-	plot_data
+	# NaN rows for clients without a ddi method: no bar is drawn, but the client
+	# keeps its dodge slot. Appended last so `presorted` keeps ddi as the final operation.
+	append!(plot_data, new_rows)
 
 end
 
