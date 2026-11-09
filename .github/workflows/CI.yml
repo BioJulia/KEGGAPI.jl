@@ -21,8 +21,14 @@ jobs:
       # issue #33: Resolve formatting through the same environment as package tests.
       - name: Instantiate test environment
         run: julia --project=test -e 'using Pkg; Pkg.instantiate()'
+      # benchmark/figure.jl is a Pluto notebook; Pluto writes tab indentation, which Runic rejects.
       - name: Check formatting
-        run: julia --project=test -e 'using Runic; Runic.main(["--check", "src/", "test/", "docs/", "benchmark/"])'
+        run: |
+          julia --project=test -e 'using Runic; exit(Runic.main([
+            "--check", "src/", "test/", "docs/",
+            "benchmark/run_benchmarks.jl", "benchmark/plot_benchmarks.jl",
+            "benchmark/write_ci_results.jl", "benchmark/runners/",
+          ]))'
 
   benchmark:
     name: Benchmark
