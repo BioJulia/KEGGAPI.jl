@@ -22,19 +22,19 @@ passes `request_delay = 0.0` because the runner already spaces calls.
 One-time setup of the isolated benchmarking environment:
 
 ```bash
-julia --project=benchmarking -e 'using Pkg; Pkg.develop(PackageSpec(path=".")); Pkg.instantiate()'
+julia --project=benchmark -e 'using Pkg; Pkg.develop(PackageSpec(path=".")); Pkg.instantiate()'
 ```
 
 Run the benchmarks, which writes `benchmark_compare.csv`:
 
 ```bash
-julia --project=benchmarking benchmarking/run_benchmarks.jl
+julia --project=benchmark benchmark/run_benchmarks.jl
 ```
 
 Regenerate the SVG used in the main README and its PNG counterpart:
 
 ```bash
-julia --project=benchmarking benchmarking/plot_benchmarks.jl
+julia --project=benchmark benchmark/plot_benchmarks.jl
 ```
 
 ## Optional interfaces
@@ -89,7 +89,7 @@ Set `JULIA`, `RSCRIPT`, or `PYTHON` to select an interpreter. For example, use
 
 ```bash
 PYTHON=/tmp/kegg_bench_venv/bin/python \
-  julia --project=benchmarking benchmarking/run_benchmarks.jl
+  julia --project=benchmark benchmark/run_benchmarks.jl
 ```
 
 Use `--only julia,curl` to select interfaces. `--nreps N` repeats all 25 cases
@@ -112,7 +112,7 @@ Each runner prints one `Function,Request,Language,Seconds` row per call. Run an
 individual runner with:
 
 ```bash
-julia --project=benchmarking benchmarking/runners/bench_julia.jl 1 0.4
+julia --project=benchmark benchmark/runners/bench_julia.jl 1 0.4
 ```
 
 Network round-trip time to `rest.kegg.jp` dominates these results. Compare
