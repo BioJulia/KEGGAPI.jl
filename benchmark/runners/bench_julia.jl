@@ -1,5 +1,5 @@
 # Julia runner: time KEGGAPI.jl calls and print one CSV row per request.
-# Usage: julia --project=benchmarking bench_julia.jl <nreps> <pause_seconds>
+# Usage: julia --project=benchmark bench_julia.jl <nreps> <pause_seconds>
 using KEGGAPI
 
 const NREPS = length(ARGS) >= 1 ? parse(Int, ARGS[1]) : 1

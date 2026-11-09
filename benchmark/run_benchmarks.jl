@@ -2,7 +2,7 @@
 #
 # Benchmark KEGGAPI.jl against KEGGREST, Bio.KEGG.REST, and raw curl.
 #
-#     julia --project=benchmarking benchmarking/run_benchmarks.jl
+#     julia --project=benchmark benchmark/run_benchmarks.jl
 #
 # Each runner emits one timing for every request in cases.tsv. Optional
 # interfaces are skipped when their dependencies are unavailable.

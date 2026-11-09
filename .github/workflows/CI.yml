@@ -22,7 +22,7 @@ jobs:
       - name: Instantiate test environment
         run: julia --project=test -e 'using Pkg; Pkg.instantiate()'
       - name: Check formatting
-        run: julia --project=test -e 'using Runic; Runic.main(["--check", "src/", "test/", "docs/", "benchmarking/"])'
+        run: julia --project=test -e 'using Runic; Runic.main(["--check", "src/", "test/", "docs/", "benchmark/"])'
 
   benchmark:
     name: Benchmark
@@ -37,23 +37,23 @@ jobs:
       - uses: julia-actions/cache@v1
       - name: Configure benchmark environment
         run: |
-          julia --project=benchmarking -e '
+          julia --project=benchmark -e '
             using Pkg
             Pkg.develop(PackageSpec(path=pwd()))
             Pkg.instantiate()'
       - name: Run request benchmarks
         run: |
-          julia --project=benchmarking benchmarking/run_benchmarks.jl \
-            --only julia --output benchmarking/benchmark_ci.csv
-          julia --project=benchmarking benchmarking/write_ci_results.jl \
-            benchmarking/benchmark_ci.csv benchmarking/benchmark_ci.json
+          julia --project=benchmark benchmark/run_benchmarks.jl \
+            --only julia --output benchmark/benchmark_ci.csv
+          julia --project=benchmark benchmark/write_ci_results.jl \
+            benchmark/benchmark_ci.csv benchmark/benchmark_ci.json
       - name: Record benchmark results
         continue-on-error: true
         uses: benchmark-action/github-action-benchmark@v1
         with:
           name: KEGGAPI request time
           tool: customSmallerIsBetter
-          output-file-path: benchmarking/benchmark_ci.json
+          output-file-path: benchmark/benchmark_ci.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           alert-threshold: '200%'

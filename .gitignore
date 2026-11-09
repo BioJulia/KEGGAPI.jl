@@ -4,8 +4,8 @@
 /Manifest.toml
 /docs/Manifest.toml
 /docs/build/
-/benchmarking/Manifest.toml
-/benchmarking/benchmark_ci.*
+/benchmark/Manifest.toml
+/benchmark/benchmark_ci.*
 *.png
-!benchmarking/benchmark.png
-benchmarking/.Rhistory
+!benchmark/benchmark.png
+benchmark/.Rhistory

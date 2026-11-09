@@ -70,9 +70,9 @@ Worked use cases:
 
 ## Benchmarks
 
-![KEGGAPI.jl Benchmarks](benchmarking/benchmark.svg "KEGGAPI.jl Benchmarks")
+![KEGGAPI.jl Benchmarks](benchmark/benchmark.svg "KEGGAPI.jl Benchmarks")
 
-See [`benchmarking/`](benchmarking/README.md) for how to reproduce these numbers.
+See [`benchmark/`](benchmark/README.md) for how to reproduce these numbers.
 
 ## Citation
 
