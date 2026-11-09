@@ -1,6 +1,6 @@
 name = "KEGGAPI"
 uuid = "e8256861-d17c-4800-bf17-838497555b93"
-version = "1.1.0"
+version = "1.2.0"
 authors = ["Nicholas Geoffrion", "Maria Victoria Aguilar Pontes", "Carlos Vigil-Vásquez"]
 
 [deps]
