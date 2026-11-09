@@ -5,7 +5,6 @@
 /docs/Manifest.toml
 /docs/build/
 /benchmark/Manifest.toml
-/benchmark/benchmark_ci.*
 *.png
 !benchmark/benchmark.png
 benchmark/.Rhistory

@@ -72,6 +72,9 @@ Worked use cases:
 
 ![KEGGAPI.jl Benchmarks](benchmark/benchmark.svg "KEGGAPI.jl Benchmarks")
 
+Mean request time ± 1 SD over 25 requests per KEGG operation. KEGGREST and
+Bio.KEGG.REST do not wrap `ddi`.
+
 See [`benchmark/`](benchmark/README.md) for how to reproduce these numbers.
 
 ## Citation

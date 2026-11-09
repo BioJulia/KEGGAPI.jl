@@ -122,7 +122,7 @@ end
 
 isempty(samples) && error("No interface could be benchmarked")
 
-# issue #45: retain every request timing so plots and CI use the distribution,
+# issue #45: retain every request timing so the figure can summarize its spread,
 # rather than reducing repeated calls to one median before writing the file.
 mkpath(dirname(OPTIONS.output))
 open(OPTIONS.output, "w") do io

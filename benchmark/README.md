@@ -5,14 +5,14 @@ Python, and raw `curl`. [`cases.tsv`](cases.tsv) defines 25 distinct requests fo
 each operation: `info`, `list`, `find`, `get`, amino-acid `get`, `conv`, `link`,
 and `ddi`. Single-entry gene and drug requests keep response sizes bounded,
 while the `info` and `find` cases span valid databases and search terms.
-KEGGREST and Bio.KEGG.REST do not wrap `ddi`, so their distributions omit that
-operation.
+KEGGREST and Bio.KEGG.REST do not wrap `ddi`, so the figure has no `ddi` bar for
+them.
 
 Each interface runs in one process, which excludes interpreter startup. One
 warm-up call per operation precedes the measurements. Calls are spaced by
 `--pause` seconds, 0.4 by default, to stay below KEGG's limit of three requests
-per second. The CSV retains each request timing, and the plot shows its
-distribution instead of reducing all requests to one value.
+per second. The CSV retains each request timing. The figure shows the mean
+request time and one standard deviation over the 25 requests of each operation.
 
 `KEGGAPI.jl`'s chunked `kegg_get` can wait between requests. The Julia runner
 passes `request_delay = 0.0` because the runner already spaces calls.
@@ -31,10 +31,17 @@ Run the benchmarks, which writes `benchmark_compare.csv`:
 julia --project=benchmark benchmark/run_benchmarks.jl
 ```
 
-Regenerate the SVG used in the main README and its PNG counterpart:
+[`figure.jl`](figure.jl) is a [Pluto](https://plutojl.org/) notebook that draws
+the figure and writes `benchmark.svg`, used in the main README, and
+`benchmark.png`. Its legend uses the JetBrainsMono Nerd Font, located with
+`fc-match`. Open the notebook in Pluto, or run it as a script in the
+environment embedded in the notebook:
 
 ```bash
-julia --project=benchmark benchmark/plot_benchmarks.jl
+julia -e 'using Pluto, Pkg
+          Pluto.activate_notebook_environment("benchmark/figure.jl")
+          Pkg.instantiate()
+          include("benchmark/figure.jl")'
 ```
 
 ## Optional interfaces
@@ -101,8 +108,7 @@ for each selected operation.
 |:-------------------------|:---------------------------------------------------|
 | `cases.tsv`              | The 25 requests for each operation                  |
 | `run_benchmarks.jl`      | Runs each interface and writes raw timings          |
-| `plot_benchmarks.jl`     | Plots the request-time distributions                |
-| `write_ci_results.jl`    | Converts Julia timings to CI benchmark JSON         |
+| `figure.jl`              | Pluto notebook that draws `benchmark.svg`/`.png`    |
 | `runners/bench_julia.jl` | KEGGAPI.jl timings                                  |
 | `runners/bench_r.R`      | KEGGREST timings                                    |
 | `runners/bench_python.py`| Bio.KEGG.REST timings                               |
@@ -117,5 +123,3 @@ julia --project=benchmark benchmark/runners/bench_julia.jl 1 0.4
 
 Network round-trip time to `rest.kegg.jp` dominates these results. Compare
 interfaces within one run because location and server load vary between runs.
-CI records the median Julia time for each operation and warns, without failing
-the job, when it exceeds the previous value by the configured threshold.

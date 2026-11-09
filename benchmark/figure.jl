@@ -94,7 +94,7 @@ let
 		
 	) * visual(Errorbars; color = :black, whiskerwidth = 4, linewidth = 1)
 
-	draw(
+	fig = draw(
 		data(plot_data) * (bars + error_bars) + mapping([0.5+i for i in 1:6]) * visual(VLines, color=:black, linestyle=:dot),
 		scales(
 			DodgeX = (; categories = client_order),
@@ -112,6 +112,11 @@ let
 		),
 		legend = (; framevisible = false, labelfont = nerd_font)
 	)
+
+	# The main README embeds benchmark.svg; the PNG is a raster copy.
+	save(joinpath(@__DIR__, "benchmark.svg"), fig)
+	save(joinpath(@__DIR__, "benchmark.png"), fig; px_per_unit = 3)
+	fig
 end
 
 # ╔═╡ 11d16508-1718-4ade-b713-2809b8d7be3d

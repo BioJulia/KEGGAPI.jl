@@ -26,45 +26,8 @@ jobs:
         run: |
           julia --project=test -e 'using Runic; exit(Runic.main([
             "--check", "src/", "test/", "docs/",
-            "benchmark/run_benchmarks.jl", "benchmark/plot_benchmarks.jl",
-            "benchmark/write_ci_results.jl", "benchmark/runners/",
+            "benchmark/run_benchmarks.jl", "benchmark/runners/",
           ]))'
-
-  benchmark:
-    name: Benchmark
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: julia-actions/setup-julia@v1
-        with:
-          version: '1'
-      - uses: julia-actions/cache@v1
-      - name: Configure benchmark environment
-        run: |
-          julia --project=benchmark -e '
-            using Pkg
-            Pkg.develop(PackageSpec(path=pwd()))
-            Pkg.instantiate()'
-      - name: Run request benchmarks
-        run: |
-          julia --project=benchmark benchmark/run_benchmarks.jl \
-            --only julia --output benchmark/benchmark_ci.csv
-          julia --project=benchmark benchmark/write_ci_results.jl \
-            benchmark/benchmark_ci.csv benchmark/benchmark_ci.json
-      - name: Record benchmark results
-        continue-on-error: true
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: KEGGAPI request time
-          tool: customSmallerIsBetter
-          output-file-path: benchmark/benchmark_ci.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-          alert-threshold: '200%'
-          fail-on-alert: true
-          summary-always: true
 
   test:
     name: Test (${{ matrix.version }}; ${{ matrix.os }} ${{ matrix.arch }})
