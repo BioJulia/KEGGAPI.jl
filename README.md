@@ -1,9 +1,9 @@
 ![plot](./assets/logo/keggapi-logo.jpg)
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://cvigilv.github.io/KEGGAPI.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://cvigilv.github.io/KEGGAPI.jl/dev/)
-[![Build Status](https://github.com/cvigilv/KEGGAPI.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/cvigilv/KEGGAPI.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/cvigilv/KEGGAPI.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/cvigilv/KEGGAPI.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://BioJulia.github.io/KEGGAPI.jl/stable/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://BioJulia.github.io/KEGGAPI.jl/dev/)
+[![Build Status](https://github.com/BioJulia/KEGGAPI.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/BioJulia/KEGGAPI.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/BioJulia/KEGGAPI.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/BioJulia/KEGGAPI.jl)
 [![code style: runic](https://img.shields.io/badge/code_style-%E1%9A%B1%E1%9A%A2%E1%9A%BE%E1%9B%81%E1%9A%B2-black)](https://github.com/fredrikekre/Runic.jl)
 [![DOI](https://zenodo.org/badge/667588694.svg)](https://doi.org/10.5281/zenodo.24085136)
 
@@ -57,16 +57,16 @@ The deprecated `timeout` keyword remains available as an alias for `request_dela
 
 ## Documentation
 
-- [Getting started](https://cvigilv.github.io/KEGGAPI.jl/dev/man/getting-started/)
-- [Examples](https://cvigilv.github.io/KEGGAPI.jl/dev/man/examples/)
-- [API reference](https://cvigilv.github.io/KEGGAPI.jl/dev/man/api/)
+- [Getting started](https://BioJulia.github.io/KEGGAPI.jl/dev/man/getting-started/)
+- [Examples](https://BioJulia.github.io/KEGGAPI.jl/dev/man/examples/)
+- [API reference](https://BioJulia.github.io/KEGGAPI.jl/dev/man/api/)
 
 Worked use cases:
 
-- [Case 1: From a UniProt ID to KEGG information](https://cvigilv.github.io/KEGGAPI.jl/dev/man/usecases/case1/)
-- [Case 2: EC reaction information in KEGG](https://cvigilv.github.io/KEGGAPI.jl/dev/man/usecases/case2/)
-- [Case 3: Identifying a compound in KEGG](https://cvigilv.github.io/KEGGAPI.jl/dev/man/usecases/case3/)
-- [Case 4: Target molecule information at KEGG](https://cvigilv.github.io/KEGGAPI.jl/dev/man/usecases/case4/)
+- [Case 1: From a UniProt ID to KEGG information](https://BioJulia.github.io/KEGGAPI.jl/dev/man/usecases/case1/)
+- [Case 2: EC reaction information in KEGG](https://BioJulia.github.io/KEGGAPI.jl/dev/man/usecases/case2/)
+- [Case 3: Identifying a compound in KEGG](https://BioJulia.github.io/KEGGAPI.jl/dev/man/usecases/case3/)
+- [Case 4: Target molecule information at KEGG](https://BioJulia.github.io/KEGGAPI.jl/dev/man/usecases/case4/)
 
 ## Benchmarks
 

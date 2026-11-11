@@ -6,11 +6,11 @@ DocMeta.setdocmeta!(KEGGAPI, :DocTestSetup, :(using KEGGAPI); recursive = true)
 makedocs(;
     modules = [KEGGAPI],
     authors = "Nicholas Geoffrion, Maria Victoria Aguilar Pontes, Carlos Vigil-Vásquez",
-    repo = "https://github.com/cvigilv/KEGGAPI.jl/blob/{commit}{path}#{line}",
+    repo = "https://github.com/BioJulia/KEGGAPI.jl/blob/{commit}{path}#{line}",
     sitename = "KEGGAPI.jl",
     format = Documenter.HTML(;
         prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://cvigilv.github.io/KEGGAPI.jl",
+        canonical = "https://BioJulia.github.io/KEGGAPI.jl",
         edit_link = "main",
         assets = String[],
     ),
@@ -31,6 +31,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/cvigilv/KEGGAPI.jl",
+    repo = "github.com/BioJulia/KEGGAPI.jl",
     devbranch = "main",
 )
